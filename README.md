@@ -7,7 +7,7 @@
 
 Many instant messengers already use encryption to secure message contents, but they can't hide important metadata such as your IP address and who you are communicating with!
 
-To hide all your information, including your metadata, identity, and IP address, Chat.onion uses onion routing (Tor) to send each message over several randomly-chosen proxy servers. Multiple layers of encryption are used to ensure that each proxy only knows it's immediate successor and predecessor, but not the entire message route.
+To hide all your information, including your metadata, identity, and IP address, Chat.onion uses onion routing (Tor) to send each message over several randomly selected proxy servers. Multiple layers of encryption are used to ensure that each proxy only knows it's immediate successor and predecessor, but not the entire message route.
 
 Chat.onion is completele free: There are no ads, you don't have to pay anything, and we can't sell your data. Chat.onion uses peer-to-peer technology and the existing Tor network, so we don't need to cover any server costs.
 
