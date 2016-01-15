@@ -1,7 +1,7 @@
 # Chat.onion
 
 
-## Anonymous and fully encrypted peer-to-peer instant messenger using onion routing (via Tor)!
+## Anonymous and fully encrypted peer-to-peer instant messenger for Android using onion routing (via Tor)!
 
 ![](https://raw.githubusercontent.com/onionApps/Chat.onion/master/gfx/fgx.jpg)
 
