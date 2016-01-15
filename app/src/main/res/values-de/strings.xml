@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Chat.onion</string>
+    <string name="about">Über diese App</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="alias">Name</string>
+    <string name="change_alias">Namen ändern</string>
+    <string name="changealias">Namen ändern</string>
+    <string name="copy_id">ID kopieren</string>
+    <string name="delete">Entfernen</string>
+    <string name="id">ID</string>
+    <string name="navigation_drawer_close">Schließen</string>
+    <string name="navigation_drawer_open">Schließen</string>
+    <string name="no_messages_yet">Noch keine Nachrichten</string>
+    <string name="open_chat">Chat öffnen</string>
+    <string name="rate">App bewerten</string>
+    <string name="scanqr">QR scannen</string>
+    <string name="send">Absenden</string>
+    <string name="shareid">Freunde einladen</string>
+    <string name="showqr">QR anzeigen</string>
+    <string name="add_contact">Kontakt hinzufügen</string>
+    <string name="apply">Anwenden</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="cant_add_self">Kann eigene Adresse nicht als Kontakt hinzufügen</string>
+    <string name="contact_added">Kontakt hinzugefügt.</string>
+    <string name="contact_already_added">Kontakt ist bereits in Kontaktliste vorhanden.</string>
+    <string name="delete_contact_q">Kontakt löschen?</string>
+    <string name="enter_id">ID eingeben</string>
+    <string name="error">Fehler</string>
+    <string name="failed_to_add_contact">Kontakt konnte nicht gespeichert werden.</string>
+    <string name="id_copied_to_clipboard">"ID in Zwischenablage kopiert: "</string>
+    <string name="invalid_id">Ungültige ID</string>
+
+    <!--<string name="invitation_text">%1$s\n\nHallo, ich würde gerne sicher per Chat.onion mit dir kommunizieren\n\nID: %2$s\n\n</string>-->
+    <!--
+    <string name="invitation_text">%1$s\n\nHallo, \n\nID: %2$s\n\n</string>
+    -->
+
+    <!--
+    <string name="invitation_text" translatable="false">%1$s\n\nLass uns sicher über Chat.onion kommunizieren!\n\nKontaktadresse\nchat.onion/%2$s/%3$s\n(Zum Verbinden nach der Installation der App öffnen)\n\nID: %2$s\n(Manuell eingeben, falls die Kontaktadresse nicht funktioniert)\n</string>
+    -->
+
+    <string name="invitation_text" translatable="false">Hallo, ich würde gerne sicher mit dir über Chat.onion kommunizieren.\n\n%1$s\n\nKontaktadresse\nchat.onion/%2$s/%3$s\n(Zum Verbinden nach der Installation der App öffnen)\n\nID: %2$s\n(Manuell eingeben, falls die Kontaktadresse nicht funktioniert)\n</string>
+
+
+    <string name="invite_friends">Freunde einladen</string>
+    <string name="libraries">Programmbibliotheken</string>
+    <string name="no">Nein</string>
+    <string name="ok">OK</string>
+    <string name="qr_invalid">QR ungültig</string>
+    <string name="really_delete_contact">Möchten Sie %s wirklich aus Ihrer Kontaktliste löschen?</string>
+    <string name="scan_qr">QR scannen</string>
+    <string name="show_qr">QR anzeigen</string>
+    <string name="snack_alias_changed">Name geändert</string>
+    <string name="tab_contacts">Kontakte</string>
+    <string name="tab_requests">Anfragen</string>
+    <string name="title_add_contact">Kontakt hinzufügen</string>
+    <string name="title_change_alias">Namen ändern</string>
+    <string name="yes">Ja</string>
+    <string name="no_contact_requests">Keine Kontaktanfragen</string>
+
+    <string name="icr_accept">Annehmen</string>
+    <string name="icr_decline">Ablehnen</string>
+
+    <plurals name="notification_new_messages">
+        <item quantity="one">%d neue Nachricht</item>
+        <item quantity="other">%d neue Nachrichten</item>
+    </plurals>
+    <string name="message_pending">Ausstehend...</string>
+    <string name="message_sent">Gesendet</string>
+    <string name="dlg_title_connect">Verbinden</string>
+    <string name="contact_request_declined">Abgelehnt.</string>
+    <string name="undo">Rückgängig</string>
+    <string name="notifications">Benachrichtigungen</string>
+    <string name="notifications_summary">Systembenachrichtigung anzeigen, wenn eine neue Nachricht empfangen wurde.</string>
+    <string name="settings">Einstellungen</string>
+    <string name="sounds">Geräusche</string>
+    <string name="sounds_summary">Geräusch abspielen, wenn eine neue Nachricht empfangen wurde.</string>
+    <string name="no_contacts">Keine Kontakte</string>
+
+
+</resources>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+<LinearLayout
+    android:background="?selectableItemBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_marginRight="12dp"
+        android:alpha="0.45"
+        android:src="@drawable/ic_person_outline_black_36dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:singleLine="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#000"
+                android:text="aifjnelsdfjpeuvbawerawerawer"
+                android:id="@+id/name" />
+
+            <TextView
+                android:paddingLeft="16dp"
+                android:layout_gravity="bottom"
+
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000"
+                android:text="aifjnelsdfjpeuvb"
+                android:id="@+id/address" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
+
+            <Button
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:drawableLeft="@drawable/ic_close_black_24dp"
+                android:background="?selectableItemBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/icr_decline"
+                android:id="@+id/decline" />
+
+            <Button
+                android:layout_gravity="center_vertical"
+                android:padding="8dp"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:drawableLeft="@drawable/ic_check_black_24dp"
+                android:background="?selectableItemBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/icr_accept"
+                android:id="@+id/accept" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
+-->
+
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:padding="16dp"
+        android:alpha="0.6"
+        android:src="@drawable/ic_person_outline_black_36dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#444"
+            android:text="aifjnelsdfjpeuvb"
+            android:id="@+id/name" />
+        <TextView
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#444"
+            android:text="aifjnelsdfjpeuvb"
+            android:id="@+id/address" />
+    </LinearLayout>
+
+
+    <!--
+    <Button
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:minWidth="0dp"
+        android:drawableLeft="@drawable/ic_close_black_24dp"
+        android:background="?selectableItemBackground"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icr_decline"
+        android:id="@+id/decline" />
+
+    <Button
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:minWidth="0dp"
+        android:drawableLeft="@drawable/ic_check_black_24dp"
+        android:background="?selectableItemBackground"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icr_accept"
+        android:id="@+id/accept" />
+        -->
+
+    <ImageButton
+        android:alpha="0.8"
+        android:clickable="true"
+        android:id="@+id/decline"
+        android:padding="16dp"
+        android:background="?selectableItemBackground"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_close_black_36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:alpha="0.8"
+        android:clickable="true"
+        android:id="@+id/accept"
+        android:padding="16dp"
+        android:background="?selectableItemBackground"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_check_black_36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

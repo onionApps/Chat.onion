@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="?selectableItemBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_marginRight="12dp"
+        android:alpha="0.45"
+        android:src="@drawable/ic_account_circle_black_36dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000"
+            android:text="aifjnelsdfjpeuvb"
+            android:id="@+id/name" />
+        <TextView
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:text="aifjnelsdfjpeuvb"
+            android:id="@+id/address" />
+    </LinearLayout>
+
+<!--
+
+    <LinearLayout
+        android:id="@+id/badge"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#888"
+            android:text="5"
+            android:id="@+id/count" />
+        <ImageView
+            android:paddingLeft="8dp"
+            android:alpha="0.45"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chat_black_24dp" />
+    </LinearLayout>
+-->
+
+
+    <LinearLayout
+        android:id="@+id/badge"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000"
+            android:alpha="0.5"
+            android:text="5"
+            android:id="@+id/count" />
+        <ImageView
+            android:paddingLeft="8dp"
+            android:alpha="0.3"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chat_black_24dp" />
+    </LinearLayout>
+
+
+    <!--
+    <LinearLayout
+        android:id="@+id/badge"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:alpha="0.45"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chat_black_24dp" />
+        <TextView
+            android:paddingLeft="8dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#888"
+            android:text="5"
+            android:id="@+id/count" />
+    </LinearLayout>
+    -->
+
+</LinearLayout>

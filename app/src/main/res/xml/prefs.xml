@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:key="notify"
+        android:defaultValue="true"
+        android:title="@string/notifications"
+        android:summary="@string/notifications_summary"
+        />
+
+    <SwitchPreference
+        android:key="sound"
+        android:defaultValue="true"
+        android:title="@string/sounds"
+        android:summary="@string/sounds_summary"
+        />
+
+</PreferenceScreen>
