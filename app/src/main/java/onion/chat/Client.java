@@ -255,4 +255,43 @@ public class Client {
         void onStatusChange(boolean loading);
     }
 
+
+    public boolean testIfServerIsUp() {
+        Sock sock = connect(tor.getID());
+        boolean ret = sock.isClosed() == false;
+        sock.close();
+        return ret;
+    }
+
+    public void doAskForNewMessages(String receiver) {
+        String sender = tor.getID();
+        log("ask for new msg");
+        String cmd = "newmsg " + receiver + " " + sender + " " + System.currentTimeMillis() / 60000 * 60000;
+        connect(receiver).queryAndClose(
+                cmd,
+                Utils.base64encode(tor.pubkey()),
+                Utils.base64encode(tor.sign(cmd.getBytes()))
+        );
+    }
+
+    public void startAskForNewMessages(final String receiver) {
+        start(new Runnable() {
+            @Override
+            public void run() {
+                doAskForNewMessages(receiver);
+            }
+        });
+    }
+
+    public void askForNewMessages() {
+
+        Cursor cur = db.getReadableDatabase().query("contacts", null, "incoming=0", null, null, null, null);
+        while (cur.moveToNext()) {
+            String receiver = cur.getString(cur.getColumnIndex("address"));
+            doAskForNewMessages(receiver);
+        }
+        cur.close();
+    }
+
+
 }

@@ -273,7 +273,9 @@ public class MainActivity extends AppCompatActivity
                 viewHolder.accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        db.acceptContact(viewHolder.address.getText().toString());
+                        String addr = viewHolder.address.getText().toString();
+                        db.acceptContact(addr);
+                        Client.getInstance(getApplicationContext()).startAskForNewMessages(addr);
                         updateContactList();
                     }
                 });

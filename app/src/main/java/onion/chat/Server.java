@@ -51,6 +51,7 @@ public class Server {
                     final LocalSocket ls;
                     try {
                         ls = ss.accept();
+                        if (BuildConfig.DEBUG) log("accept");
                     } catch (IOException ex) {
                         throw new Error(ex);
                     }
@@ -73,6 +74,37 @@ public class Server {
                 }
             }
         }.start();
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    return;
+                }
+                Tor tor = Tor.getInstance(context);
+                for(int i = 0; i < 20 && !tor.isReady(); i++) {
+                    log("Tor not ready");
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ex) {
+                        return;
+                    }
+                }
+                log("Tor ready");
+                final Client client = Client.getInstance(context);
+                for(int i = 0; i < 20 && !client.testIfServerIsUp(); i++) {
+                    log("Hidden server descriptors not yet propagated");
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ex) {
+                        return;
+                    }
+                }
+                log("Hidden service registered");
+                client.askForNewMessages();
+            }
+        }.start();
     }
 
     public static Server getInstance(Context context) {
@@ -93,7 +125,9 @@ public class Server {
             listener.onChange();
     }
 
-    String handle(String request) {
+    String handle(String request) throws Exception{
+
+        if (BuildConfig.DEBUG) log("accept");
 
         Database db = Database.getInstance(context);
         Tor tor = Tor.getInstance(context);
@@ -183,6 +217,46 @@ public class Server {
             }
 
             log("add ok");
+
+            return "1";
+
+        }
+
+        if("newmsg".equals(tokens[0]) && tokens.length == 6) {
+
+            String op = tokens[0];
+            String receiver = tokens[1];
+            String sender = tokens[2];
+            String timestr = tokens[3];
+            String pubkey = tokens[4];
+            String signature = tokens[5];
+
+            if (!receiver.equals(tor.getID())) {
+                log("message wrong address");
+                return "";
+            }
+            log("message address ok");
+
+            if(Long.parseLong(timestr) > System.currentTimeMillis()) {
+                log("wrong timestamp, future");
+                return "";
+            }
+
+            if(Long.parseLong(timestr) + 150000 < System.currentTimeMillis()) {
+                log("wrong timestamp, timed out");
+                return "";
+            }
+
+            if (!tor.checksig(
+                    sender,
+                    Utils.base64decode(pubkey),
+                    Utils.base64decode(signature),
+                    (op + " " + receiver + " " + sender + " " + timestr).getBytes())) {
+                log("message invalid signature");
+                return "";
+            }
+
+            Client.getInstance(context).startSendPendingMessages(sender);
 
             return "1";
 

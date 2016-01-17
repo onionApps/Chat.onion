@@ -25,12 +25,11 @@ public class Sock {
 
         log(host);
 
+        sock = new Socket();
+
         try {
 
-            sock = new Socket();
-
             Tor tor = Tor.getInstance(context);
-
 
             try {
 
@@ -44,6 +43,12 @@ public class Sock {
                 }
             } catch (IOException ex) {
                 log("failed to open socket");
+                try {
+                    sock.close();
+                } catch (IOException ex2) {
+                }
+            } catch (Exception ex) {
+                log("sock connect err");
                 try {
                     sock.close();
                 } catch (IOException ex2) {
