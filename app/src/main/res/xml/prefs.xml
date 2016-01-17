@@ -15,4 +15,11 @@
         android:summary="@string/sounds_summary"
         />
 
+    <!--
+    <Preference
+        android:key="keyexport"
+        android:title="Export Private Key"
+        />
+    -->
+
 </PreferenceScreen>

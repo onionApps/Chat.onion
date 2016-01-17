@@ -767,7 +767,11 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(Intent.EXTRA_REFERRER, url);
         intent.putExtra("customAppUri", url);
 
-        intent.putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.invitation_text), url, tor.getID(), Uri.encode(db.getName())));
+        String msg = String.format(getString(R.string.invitation_text), url, tor.getID(), Uri.encode(db.getName()));
+
+        Log.i("Message", msg.replace('\n', ' '));
+
+        intent.putExtra(Intent.EXTRA_TEXT, msg);
         intent.setType("text/plain");
 
         /*intent.setType("text/html");

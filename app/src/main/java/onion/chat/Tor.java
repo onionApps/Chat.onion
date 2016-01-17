@@ -244,8 +244,12 @@ public class Tor {
         }
     }
 
+    public String readPrivateKeyFile() {
+        return Utils.filestr(new File(getServiceDir(), "private_key"));
+    }
+
     RSAPrivateKey getPrivateKey() {
-        String priv = Utils.filestr(new File(getServiceDir(), "private_key"));
+        String priv = readPrivateKeyFile();
         //log(priv);
         priv = priv.replace("-----BEGIN RSA PRIVATE KEY-----\n", "");
         priv = priv.replace("-----END RSA PRIVATE KEY-----", "");

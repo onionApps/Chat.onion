@@ -2,9 +2,11 @@ package onion.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -30,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
         //setContentView(R.layout.prefs);
 
         getFragmentManager().beginTransaction().add(R.id.content, new SettingsFragment()).commit();
+
 
     }
 
@@ -93,6 +96,16 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.prefs);
+
+            if(getPreferenceManager().findPreference("keyexport") != null) {
+                getPreferenceManager().findPreference("keyexport").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Log.i("Private Key", Tor.getInstance(getActivity()).readPrivateKeyFile());
+                        return true;
+                    }
+                });
+            }
         }
     }
 

@@ -8,8 +8,8 @@ android {
         applicationId "onion.chat"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 6
-        versionName "6"
+        versionCode 7
+        versionName "7"
 
         ndk {
             ldLibs "log"
