@@ -433,7 +433,7 @@ public class MainActivity extends AppCompatActivity
             contactCursor.close();
             contactCursor = null;
         }
-        contactCursor = db.getReadableDatabase().query("contacts", new String[]{"address", "name", "pending"}, "incoming=0", null, null, null, "name, address");
+        contactCursor = db.getReadableDatabase().query("contacts", new String[]{"address", "name", "pending"}, "incoming=0", null, null, null, "incoming, name, address");
         contactRecycler.getAdapter().notifyDataSetChanged();
         contactEmpty.setVisibility(contactCursor.getCount() == 0 ? View.VISIBLE : View.INVISIBLE);
 
@@ -441,7 +441,7 @@ public class MainActivity extends AppCompatActivity
             requestCursor.close();
             requestCursor = null;
         }
-        requestCursor = db.getReadableDatabase().query("contacts", new String[]{"address", "name"}, "incoming!=0", null, null, null, "name, address");
+        requestCursor = db.getReadableDatabase().query("contacts", new String[]{"address", "name"}, "incoming!=0", null, null, null, "incoming, name, address");
         requestRecycler.getAdapter().notifyDataSetChanged();
         requestEmpty.setVisibility(requestCursor.getCount() == 0 ? View.VISIBLE : View.INVISIBLE);
 
@@ -582,9 +582,7 @@ public class MainActivity extends AppCompatActivity
                 .setPositiveButton(R.string.apply, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ContentValues v = new ContentValues();
-                        v.put("name", editText.getText().toString());
-                        db.getWritableDatabase().update("contacts", v, "address=?", new String[]{address});
+                        db.setContactName(address,  editText.getText().toString());
                         update();
                         snack(getString(R.string.snack_alias_changed));
                     }

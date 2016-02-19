@@ -1,6 +1,5 @@
 package onion.chat;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,12 +9,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -50,10 +51,9 @@ public class ChatActivity extends AppCompatActivity {
 
         String a = tor.getID();
         String b = address;
-        if (a.equals("")) a = "fahewmrvahwlejufbaelilrv123425";
-        if (b.equals("")) b = "kznmhgauzgmuegwurbakwenu826347";
         //cursor = db.getReadableDatabase().query("messages", null, "(sender=? AND receiver=?) OR (sender=? AND receiver=?)", new String[] { a, b, b, a }, null, null, "time ASC");
-        cursor = db.getReadableDatabase().rawQuery("SELECT * FROM (SELECT * FROM messages WHERE ((sender=? AND receiver=?) OR (sender=? AND receiver=?)) ORDER BY time DESC LIMIT 64) ORDER BY time ASC", new String[]{a, b, b, a});
+        //cursor = db.getReadableDatabase().rawQuery("SELECT * FROM (SELECT * FROM messages WHERE ((sender=? AND receiver=?) OR (sender=? AND receiver=?)) ORDER BY time DESC LIMIT 64) ORDER BY time ASC", new String[]{a, b, b, a});
+        cursor = db.getMessages(a, b);
 
         cursor.moveToLast();
         long idLast = -1;
@@ -149,13 +149,7 @@ public class ChatActivity extends AppCompatActivity {
                 message = message.trim();
                 if (message.equals("")) return;
 
-                ContentValues v = new ContentValues();
-                v.put("sender", sender);
-                v.put("receiver", address);
-                v.put("content", message);
-                v.put("time", System.currentTimeMillis());
-                v.put("pending", true);
-                db.getReadableDatabase().insert("messages", null, v);
+                db.addPendingOutgoingMessage(sender, address, message);
 
                 ((EditText) findViewById(R.id.editmessage)).setText("");
 
@@ -279,7 +273,7 @@ public class ChatActivity extends AppCompatActivity {
 
         Notifier.getInstance(this).onResumeActivity();
 
-        db.clearPendingMessages(address);
+        db.clearIncomingMessageCount(address);
 
         ((TorStatusView) findViewById(R.id.torStatusView)).update();
 
@@ -292,7 +286,7 @@ public class ChatActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        db.clearPendingMessages(address);
+        db.clearIncomingMessageCount(address);
         Notifier.getInstance(this).onPauseActivity();
         timer.cancel();
         timer.purge();
@@ -317,6 +311,7 @@ public class ChatActivity extends AppCompatActivity {
         public TextView message, time, status;
         public View left, right;
         public CardView card;
+        public View abort;
 
         public ChatHolder(View v) {
             super(v);
@@ -327,6 +322,7 @@ public class ChatActivity extends AppCompatActivity {
             left = v.findViewById(R.id.left);
             right = v.findViewById(R.id.right);
             card = (CardView) v.findViewById(R.id.card);
+            abort = v.findViewById(R.id.abort);
         }
     }
 
@@ -344,24 +340,13 @@ public class ChatActivity extends AppCompatActivity {
             cursor.moveToFirst();
             cursor.moveToPosition(position);
 
+            final long id = cursor.getLong(cursor.getColumnIndex("_id"));
             String content = cursor.getString(cursor.getColumnIndex("content"));
             String sender = cursor.getString(cursor.getColumnIndex("sender"));
             String time = date(cursor.getString(cursor.getColumnIndex("time")));
             boolean pending = cursor.getInt(cursor.getColumnIndex("pending")) > 0;
             boolean tx = sender.equals(tor.getID());
 
-            /*
-            if(sender == null) sender = "";
-            if(sender.equals(address) && !othername.isEmpty()) sender = othername;
-*/
-            //if(sender.equals(tor.getID()) && !myname.isEmpty()) sender = myname;
-
-            /*if(sender.equals(tor.getID())) {
-                if (pending)
-                    sender = "Pending...";
-                else
-                    sender = "";
-            }*/
 
             if (sender.equals(tor.getID())) sender = "You";
 
@@ -401,26 +386,38 @@ public class ChatActivity extends AppCompatActivity {
 
             int color = pending ? 0xff000000 : 0xff888888;
             holder.time.setTextColor(color);
-            //holder.sender.setTextColor(color);
             holder.status.setTextColor(color);
 
 
-            holder.message.setText(content);
-            //holder.sender.setText(sender);
+            //holder.message.setText(content);
+
+
+            holder.message.setMovementMethod(LinkMovementMethod.getInstance());
+            holder.message.setText(Utils.linkify(ChatActivity.this, content));
+
+
             holder.time.setText(time);
+
 
             holder.status.setText(status);
 
-            /*if(tx) {
-                if (pending)
-                    holder.status.setText("Pending...");
-                else
-                    holder.status.setText("Sent");
-                holder.status.setVisibility(View.VISIBLE);
+
+            if (pending) {
+                holder.abort.setVisibility(View.VISIBLE);
+                holder.abort.setClickable(true);
+                holder.abort.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean ok = db.abortOutgoingMessage(id);
+                        update();
+                        Toast.makeText(ChatActivity.this, ok ? "Pending message aborted." : "Error: Message already sent.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             } else {
-                holder.status.setVisibility(View.GONE);
-            }*/
-            //holder.status.setVisibility(View.GONE);
+                holder.abort.setVisibility(View.GONE);
+                holder.abort.setClickable(false);
+                holder.abort.setOnClickListener(null);
+            }
         }
 
         @Override

@@ -1,6 +1,16 @@
 package onion.chat;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.text.SpannableStringBuilder;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
+import android.text.util.Linkify;
 import android.util.Base64;
+import android.view.View;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -51,6 +61,38 @@ public class Utils {
 
     public static String filestr(File f) {
         return new String(filebin(f), utf8);
+    }
+
+    public static CharSequence linkify(final Context context, String s) {
+        SpannableStringBuilder b = new SpannableStringBuilder(s);
+        SpannableStringBuilder r = new SpannableStringBuilder(s);
+        Linkify.addLinks(b, Linkify.WEB_URLS);
+        URLSpan[] urls = b.getSpans(0, b.length(), URLSpan.class);
+        for(int i = 0; i < urls.length && i < 8; i++) {
+            URLSpan span = urls[i];
+            int start = b.getSpanStart(span);
+            int end = b.getSpanEnd(span);
+            int flags = b.getSpanFlags(span);
+            final String url = span.getURL();
+            ClickableSpan s2 = new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    new AlertDialog.Builder(context)
+                            .setTitle(url)
+                            .setMessage("Open link in external app?")
+                            .setNegativeButton("No", null)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                                }
+                            })
+                            .show();
+                }
+            };
+            r.setSpan(s2, start, end, flags);
+        }
+        return r;
     }
 
 }

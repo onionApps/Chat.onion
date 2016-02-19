@@ -1,6 +1,5 @@
 package onion.chat;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -41,26 +40,7 @@ public class Client {
         return sock;
     }
 
-    /*
-    private boolean sendMsg(String receiver, String time, String content) {
-        Sock sock = connect(receiver);
-        boolean ret = sendMsg(sock, receiver, time, content);
-        sock.close();
-        return ret;
-    }
-    */
-
     private boolean sendAdd(String receiver) {
-
-        /*
-        return connect(address).queryAndClose(
-                "add",
-                address,
-                tor.getID(),
-                Utils.base64encode(tor.pubkey()),
-                Utils.base64encode(tor.sign(("add " + address + " " + tor.getID()).getBytes()))
-        );
-        */
 
         String sender = tor.getID();
 
@@ -80,21 +60,6 @@ public class Client {
     }
 
     private boolean sendMsg(Sock sock, String receiver, String time, String content) {
-
-        /*
-        content = Utils.base64encode(content.getBytes(Charset.forName("UTF-8")));
-        String sender = tor.getID();
-        if(receiver.equals(sender)) return false;
-        return sock.queryBool(
-                "msg",
-                tor.getID(),
-                receiver,
-                time,
-                content,
-                Utils.base64encode(tor.pubkey()),
-                Utils.base64encode(tor.sign(("msg " + sender + " " + receiver + " " + time + " " + content).getBytes()))
-        );
-        */
 
         if (sock.isClosed()) {
             return false;
@@ -120,34 +85,6 @@ public class Client {
         );
 
     }
-
-
-    /*
-    public void startSendPendingMessages() {
-        log("start send pending messages");
-        start(new Runnable() {
-            @Override
-            public void run() {
-                log("do send pending messages");
-                Database db = Database.getInstance(context);
-                Cursor cur = db.getReadableDatabase().query("messages", null, "pending=?", new String[]{"1"}, null, null, null);
-                while (cur.moveToNext()) {
-                    log("try to send message");
-                    String receiver = cur.getString(cur.getColumnIndex("receiver"));
-                    String time = cur.getString(cur.getColumnIndex("time"));
-                    String content = cur.getString(cur.getColumnIndex("content"));
-                    if (sendMsg(receiver, time, content)) {
-                        ContentValues v = new ContentValues();
-                        v.put("pending", false);
-                        db.getWritableDatabase().update("messages", v, "_id=?", new String[]{cur.getString(cur.getColumnIndex("_id"))});
-                        log("message sent");
-                    }
-                }
-                cur.close();
-            }
-        });
-    }
-    */
 
     public void startSendPendingFriends() {
         log("start send pending friends");
@@ -199,9 +136,7 @@ public class Client {
                 String time = cur.getString(cur.getColumnIndex("time"));
                 String content = cur.getString(cur.getColumnIndex("content"));
                 if (sendMsg(sock, receiver, time, content)) {
-                    ContentValues v = new ContentValues();
-                    v.put("pending", false);
-                    db.getWritableDatabase().update("messages", v, "_id=?", new String[]{cur.getString(cur.getColumnIndex("_id"))});
+                    db.markMessageAsSent(cur.getLong(cur.getColumnIndex("_id")));
                     log("message sent");
                 }
             }
@@ -284,7 +219,6 @@ public class Client {
     }
 
     public void askForNewMessages() {
-
         Cursor cur = db.getReadableDatabase().query("contacts", null, "incoming=0", null, null, null, null);
         while (cur.moveToNext()) {
             String receiver = cur.getString(cur.getColumnIndex("address"));

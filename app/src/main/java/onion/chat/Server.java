@@ -208,7 +208,7 @@ public class Server {
             content = new String(Utils.base64decode(content), Charset.forName("UTF-8"));
 
             long ltime = Long.parseLong(time);
-            db.addMessage(sender, sendername, receiver, content, ltime);
+            db.addUnreadIncomingMessage(sender, sendername, receiver, content, ltime);
 
             if (listener != null) listener.onChange();
 
