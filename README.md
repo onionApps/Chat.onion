@@ -33,3 +33,8 @@ Chat.onion users are identified via 16 character checksums of their public keys.
 https://play.google.com/store/apps/details?id=onion.chat
 
 http://onionapps.github.io/Chat.onion/
+
+
+
+
+Author: http://github.com/onionApps - http://jkrnk73uid7p5thz.onion - bitcoin:1kGXfWx8PHZEVriCNkbP5hzD15HS4AyKf
